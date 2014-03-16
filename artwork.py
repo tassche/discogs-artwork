@@ -424,6 +424,9 @@ def _save_image_to_disk(resource, target):
             message = "cannot create directory: {}".format(e.strerror)
             logger.error(message)
             raise DiskError(message)
+    ### Prevent 401 Unauthorized when not using OAuth.
+    resource = resource.replace('api.discogs.com', 's.pixogs.com')
+    ###
     image = _openurl(resource, headers=_discogs_api_headers)
     try:
         with open(target, 'wb') as f:

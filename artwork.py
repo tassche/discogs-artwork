@@ -149,9 +149,10 @@ def get_largest(artist, album, year=None):
         except ImageNotFoundError:
             pass
     largest_image, largest_size = None, 0
-    for image in images:
-        if image.width * image.heigth > largest_size:
-            largest_image = image
+    for image_resources in images:
+        for image in image_resources:
+            if image.width * image.height > largest_size:
+                largest_image = image
     if not largest_image:
         message = ("no image found for '{album}' by '{artist}'"
                    "".format(artist=artist, album=album))
